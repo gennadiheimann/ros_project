@@ -11,10 +11,10 @@ from functools import partial
 class TurtleControllerNode(Node):
     def __init__(self):
         super().__init__("turtle_controller")
-        # self.target_x_ = 8.0
-        # self.target_y_ = 4.0
+        self.declare_parameter("catch_closest_turtle_first", True)
         self.pose_ = None
         self.turtle_to_catch_ = None
+        self.catch_closest_turtle_first_ = self.get_parameter("catch_closest_turtle_first").value
         
         self.cmd_vel_publisher = self.create_publisher(
             Twist, "/turtle1/cmd_vel", 10)
@@ -63,9 +63,22 @@ class TurtleControllerNode(Node):
             
         
         self.cmd_vel_publisher.publish(cmd)
+        
     def callback_alive_turtles(self, turtle_list: TurtleArray):
         if(len(turtle_list.turtles) > 0):
-            self.turtle_to_catch_ = turtle_list.turtles[0]
+            if(self.catch_closest_turtle_first_):
+                closest_turtle = None
+                closest_distance = None
+                for turtle in turtle_list.turtles:
+                    dist_x = turtle.x - self.pose_.x
+                    dist_y = turtle.y - self.pose_.y
+                    distance = math.sqrt(dist_x**2 + dist_y**2)
+                    if closest_distance == None or distance < closest_distance:
+                        closest_distance = distance
+                        closest_turtle = turtle
+                self.turtle_to_catch_ = closest_turtle
+            else:
+                self.turtle_to_catch_ = turtle_list.turtles[0]
             
     def call_catch_turtle_service(self, turtle_name):
         while not self.catch_turtle_client_.wait_for_service(timeout_sec=1.0):
