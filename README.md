@@ -13,3 +13,95 @@ ws_[project]
     │   └── Dockerfile
     ├── package1
     └── package2
+## Project
+
+## Workspace
+```bash
+cd workspace
+colcon build
+```
+## Py packege
+in ws/src
+```bash 
+ros2 pkg create my_py_pkg --build-type ament_python --dependencies rclpy
+```
+
+## CPP package
+```bash
+ros2 pkg create my_cpp_pkg --build-type ament_cmake --dependencies rclcpp
+```
+
+## install selected package
+```bash
+colcon build --packages-select my_py_pkg
+```
+
+## source env
+```bash
+.  install/setup.sh
+. /opt/ros/jazzy/setup.bash 
+```
+
+## run package
+
+```bash
+ros2 run my_py_pkg py_node
+```
+
+## Project
+
+```bash
+sudo apt install ros-jazzy-turtlesim
+sudo apt install ros-jazzy-rqt-graph
+```
+
+```bash
+ros2 pkg create turtelsim_catch_them_all --build-type ament_python --dependencies rclpy tu
+rtelsim
+```
+
+```bash
+ros2 run turtlesim turtlesim_node
+
+ros2 topic list
+
+ros2 topic echo /turtle1/pose
+
+ros2 topic info /turtle1/pose
+
+ros2 interface show turtlesim/msg/Pose
+
+colcon build --packages-select turtelsim_catch_them_all --symlink-install
+
+ros2 run turtelsim_catch_them_all turtle_controller
+
+ros2 service list
+
+ros2 service type /spawn
+
+ros2 service call /spawn turtlesim/srv/Spawn "{x: 4.0, y: 6.0, theta: 3.14}"
+
+ros2 run turtelsim_catch_them_all turtle_spawner
+```
+### Tortlesim App
+### Sourcing
+```
+.  install/setup.sh
+. /opt/ros/jazzy/setup.bash 
+```
+```
+ros2 run turtlesim turtlesim_node
+ros2 run turtelsim_catch_them_all turtle_controller
+ros2 run turtelsim_catch_them_all turtle_spawner
+```
+### Luaunch
+
+```
+ros2 launch my_robot_bringup turtelsim_catch_them_all.launch.xml 
+```
+
+## ...
+
+```bash
+
+```
