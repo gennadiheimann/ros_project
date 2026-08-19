@@ -100,6 +100,21 @@ ros2 run turtelsim_catch_them_all turtle_spawner
 ros2 launch my_robot_bringup turtelsim_catch_them_all.launch.xml 
 ```
 
+## URDF Tutorial
+
+```bash
+sudo apt install ros-jazzy-urdf-tutorial
+source /opt/ros/jazzy/setup.bash
+ros2 launch urdf_tutorial display.launch.py model:=urdf/08-macroed.urdf.xacro 
+ros2 launch urdf_tutorial display.launch.py model:=/home/ws/src/my_robot.urdf 
+```
+
+## ...
+
+```bash
+
+```
+
 ## ...
 
 ```bash
