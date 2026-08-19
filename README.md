@@ -13,6 +13,7 @@ ws_[project]
     │   └── Dockerfile
     ├── package1
     └── package2
+## Project
 
 ## Workspace
 ```bash
