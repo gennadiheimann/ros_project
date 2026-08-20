@@ -128,10 +128,10 @@ in workspace
 colcon build
 ```
 
-## ...
+launch robot_description
 
 ```bash
-
+ros2 launch my_robot_description display.launch.xml
 ```
 
 ## ...
