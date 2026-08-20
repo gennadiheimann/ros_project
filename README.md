@@ -100,6 +100,8 @@ ros2 run turtelsim_catch_them_all turtle_spawner
 ros2 launch my_robot_bringup turtelsim_catch_them_all.launch.xml 
 ```
 
+# ros2 tf urdf rviz gazebo
+
 ## URDF Tutorial
 
 ```bash
@@ -107,6 +109,23 @@ sudo apt install ros-jazzy-urdf-tutorial
 source /opt/ros/jazzy/setup.bash
 ros2 launch urdf_tutorial display.launch.py model:=urdf/08-macroed.urdf.xacro 
 ros2 launch urdf_tutorial display.launch.py model:=/home/ws/src/my_robot.urdf 
+```
+
+## Run robot state publisher in rviz
+
+```bash
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(xacro src/my_robot.urdf)"
+rqt_graph
+ros2 run joint_state_publisher_gui joint_state_publisher_gui
+ros2 run rviz2 rviz2
+```
+
+## Create robot description package
+
+in workspace
+
+```bash
+colcon build
 ```
 
 ## ...

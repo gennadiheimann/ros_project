@@ -23,9 +23,9 @@ RUN if ! getent group "$USER_GID" >/dev/null; then groupadd --gid "$USER_GID" "$
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y python3-pip ros-jazzy-urdf-tutorial
+RUN apt-get install -y python3-pip ros-jazzy-urdf-tutorial ros-jazzy-rqt-graph
 ENV SHELL=/bin/bash
-RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/$USERNAME/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash \n source install/setup.bash" >> /home/$USERNAME/.bashrc
 
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
