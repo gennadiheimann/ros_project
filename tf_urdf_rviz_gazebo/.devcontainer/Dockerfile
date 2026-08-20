@@ -25,6 +25,7 @@ RUN if ! getent group "$USER_GID" >/dev/null; then groupadd --gid "$USER_GID" "$
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip ros-jazzy-urdf-tutorial
 ENV SHELL=/bin/bash
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/$USERNAME/.bashrc
 
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
