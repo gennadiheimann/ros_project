@@ -56,8 +56,7 @@ sudo apt install ros-jazzy-rqt-graph
 ```
 
 ```bash
-ros2 pkg create turtelsim_catch_them_all --build-type ament_python --dependencies rclpy tu
-rtelsim
+ros2 pkg create turtelsim_catch_them_all --build-type ament_python --dependencies rclpy turtelsim
 ```
 
 ```bash
@@ -144,6 +143,14 @@ Inertia
 
 https://en.wikipedia.org/wiki/List_of_moments_of_inertia#List_of_3D_inertia_tensors
 https://wiki.ros.org/urdf/Tutorials/Adding%20Physical%20and%20Collision%20Properties%20to%20a%20URDF%20Model
+
+Gazebo launch
+
+```bash
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(xacro src/my_robot.urdf)"
+ros2 launch ros_gz_sim gz_sim.launch.py gz_args:="empty.sdf -r"
+ros2 run ros_gz_sim create -topic robot_description
+```
 
 ## ...
 
