@@ -134,6 +134,12 @@ launch robot_description
 ros2 launch my_robot_description display.launch.xml
 ```
 
+##  Gazebo
+
+```bash
+ros2 launch ros_gz_sim gz_sim.launch.py gz_args:=empty.sdf
+```
+
 ## ...
 
 ```bash
