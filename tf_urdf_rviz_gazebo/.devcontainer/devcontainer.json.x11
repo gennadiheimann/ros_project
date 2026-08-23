@@ -1,11 +1,11 @@
 {
     "name": "ROS 2 Development Container",
     "privileged": true,
-    "remoteUser": "gennadi",
+    "remoteUser": "heimang",
     "build": {
         "dockerfile": "Dockerfile",
         "args": {
-            "USERNAME": "gennadi"
+            "USERNAME": "heimang"
         }
     },
     "workspaceFolder": "/home/ws",
@@ -39,5 +39,5 @@
         "source=${localWorkspaceFolder}/../cache/jazzy/install,target=/home/ws/install,type=bind",
         "source=${localWorkspaceFolder}/../cache/jazzy/log,target=/home/ws/log,type=bind"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R gennadi /home/ws/"
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R heimang /home/ws/"
 }

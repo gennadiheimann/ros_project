@@ -152,6 +152,12 @@ ros2 launch ros_gz_sim gz_sim.launch.py gz_args:="empty.sdf -r"
 ros2 run ros_gz_sim create -topic robot_description
 ```
 
+## Run GUI in Docker in kde neon
+
+```bash
+xhost +local:docker
+```
+
 ## ...
 
 ```bash

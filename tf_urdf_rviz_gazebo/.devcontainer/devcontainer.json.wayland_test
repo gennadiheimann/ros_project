@@ -25,19 +25,26 @@
     },
     "containerEnv": {
         "DISPLAY": "unix:0",
+        "WAYLAND_DISPLAY": "wayland-0",
+        "XDG_RUNTIME_DIR": "/tmp",
+        "QT_QPA_PLATFORM": "wayland",
+        "GDK_BACKEND": "wayland",
         "ROS_LOCALHOST_ONLY": "1",
         "ROS_DOMAIN_ID": "42"
     },
     "runArgs": [
         "--net=host",
-        "-e", "DISPLAY=${env:DISPLAY}"
+        "-e", "DISPLAY=${env:DISPLAY}",
+        "-e", "WAYLAND_DISPLAY=${env:WAYLAND_DISPLAY}",
+        "-e", "XDG_RUNTIME_DIR=${env:XDG_RUNTIME_DIR}"
     ],
     "mounts": [
-       "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/run/user/1000/wayland-0,target=/tmp/wayland-0,type=bind,consistency=cached",
         "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/../cache/jazzy/build,target=/home/ws/build,type=bind",
         "source=${localWorkspaceFolder}/../cache/jazzy/install,target=/home/ws/install,type=bind",
         "source=${localWorkspaceFolder}/../cache/jazzy/log,target=/home/ws/log,type=bind"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R gennadi /home/ws/"
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R heimang /home/ws/"
 }
