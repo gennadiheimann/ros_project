@@ -23,7 +23,13 @@ RUN if ! getent group "$USER_GID" >/dev/null; then groupadd --gid "$USER_GID" "$
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y python3-pip ros-jazzy-urdf-tutorial ros-jazzy-rqt-graph ros-jazzy-ros-gz
+RUN apt-get install -y \ 
+    python3-pip \
+    ros-jazzy-urdf-tutorial \
+    ros-jazzy-rqt-graph \
+    ros-jazzy-ros-gz \
+    mupdf \
+    ros-$ROS_DISTRO-teleop-twist-keyboard
 # X11 GUI dependencies
 #RUN apt-get update && apt-get install -y \
 #    libx11-6 \

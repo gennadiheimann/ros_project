@@ -144,12 +144,35 @@ Inertia
 https://en.wikipedia.org/wiki/List_of_moments_of_inertia#List_of_3D_inertia_tensors
 https://wiki.ros.org/urdf/Tutorials/Adding%20Physical%20and%20Collision%20Properties%20to%20a%20URDF%20Model
 
-Gazebo launch
+Spawn the robot in gazibo
 
 ```bash
-ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(xacro src/my_robot.urdf)"
+cd src/my_robot_description
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(xacro urdf/my_robot.urdf)"
 ros2 launch ros_gz_sim gz_sim.launch.py gz_args:="empty.sdf -r"
 ros2 run ros_gz_sim create -topic robot_description
+```
+
+## Spawn the robot in gazibo (bringup)
+
+```bash
+ros2 launch my_robot_bringup my_robot_gazebo.launch.xml
+```
+
+## Add gazibo pugin and bridge
+
+[Gazibo Plugins](https://github.com/gazebosim/gz-sim/tree/gz-sim9/src/systems)  
+[Gazibo Bridge](https://github.com/gazebosim/ros_gz/tree/ros2/ros_gz_bridge)
+[Ros Gazibo Bridge](https://github.com/gazebosim/ros_gz/tree/ros2/ros_gz_bridge)
+
+```bash
+ros2 topic list
+gz topic -l
+gz topic -i -t /clock
+ros2 topic echo /joint_states
+ros2 topic pub -r 1 /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.0}, angular: {z: 0.0}}"
+ros2 interface show geometry_msgs/msg/Twist
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
 ## Run GUI in Docker in kde neon
