@@ -175,6 +175,18 @@ ros2 interface show geometry_msgs/msg/Twist
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
+Show TF Graph
+
+````bash
+ros2 run tf2_tools view_frames
+```
+
+Start Gazebo alone
+
+```bash
+gz sim -v 4 /home/ws/install/my_robot_bringup/share/my_robot_bringup/worlds/my_robot_world.sdf
+```
+
 ## Run GUI in Docker in kde neon
 
 ```bash
