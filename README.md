@@ -187,6 +187,15 @@ Start Gazebo alone
 gz sim -v 4 /home/ws/install/my_robot_bringup/share/my_robot_bringup/worlds/my_robot_world.sdf
 ```
 
+## Arm project
+
+Start Rviz
+
+```bash
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(xacro src/my_robot_description/urdf/standalone_arm.urdf.xacro)"
+ros2 run rviz2 rviz2
+```
+
 ## Run GUI in Docker in kde neon
 
 ```bash

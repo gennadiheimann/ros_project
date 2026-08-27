@@ -25,6 +25,17 @@
                        o_xyz="0 0 0" o_rpy="0 0 0" />
     </link>
 
+     <link name="camera_link_optical" />
+
+     <joint name="camera_optical_joint" type="fixed">
+        <!-- these values have to be these values otherwise the gazebo camera
+            image won't be aligned properly with the frame it is supposedly
+            originating from -->
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+        <parent link="camera_link"/>
+        <child link="camera_link_optical"/>
+    </joint>
+
     <joint name="base_camera_joint" type="fixed">
         <parent link="base_link" />
         <child link="camera_link" />
@@ -49,7 +60,7 @@
                     <mean>0.0</mean>
                     <stddev>0.007</stddev>
                 </noise>
-                <optical_frame_id>camera_link</optical_frame_id>
+                <optical_frame_id>camera_link_optical</optical_frame_id>
                 <camera_info_topic>camera/camera_info</camera_info_topic>
             </camera>
             <always_on>1</always_on>
