@@ -203,6 +203,14 @@ check_urdf
 xacro src/my_robot_description/urdf/my_robot.urdf.xacro > /home/ws/robot.urdf
 ```
 
+Run without gazibo Rviz, joint_state_publisher_gui, robot_state_publisher
+
+```bash
+ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_description:="$(xacro src/my_robot_description/urdf/my_robot.urdf.xacro)"
+ros2 run joint_state_publisher_gui joint_state_publisher_gui
+ros2 run rviz2 rviz2
+```
+
 ## Run GUI in Docker in kde neon
 
 ```bash
