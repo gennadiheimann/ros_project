@@ -196,6 +196,13 @@ ros2 run robot_state_publisher robot_state_publisher --ros-args -p robot_descrip
 ros2 run rviz2 rviz2
 ```
 
+Debug
+
+```bash
+check_urdf
+xacro src/my_robot_description/urdf/my_robot.urdf.xacro > /home/ws/robot.urdf
+```
+
 ## Run GUI in Docker in kde neon
 
 ```bash
