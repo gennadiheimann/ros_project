@@ -110,6 +110,12 @@ ros2 run joint_state_publisher_gui joint_state_publisher_gui
 ros2 run rviz2 rviz2 ros-args -d src/my_robot_description/rviz/urdf_config_robot_arm.rviz
 ```
 
+Move arm
+```bash
+ros2 topic pub /hand_forearm_joint/cmd_pos std_msgs/msg/Float64 "data: 0.5"
+ros2 topic pub /arm_base_forearm_joint/cmd_pos std_msgs/msg/Float64 "data: 1.9"
+```
+
 ## Run GUI in Docker in kde neon
 
 ```bash
