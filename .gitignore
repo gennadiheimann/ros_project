@@ -1,5 +1,5 @@
 cache/
-src/build
-src/install
-src/log
+advanced-core-concepts/build
+advanced-core-concepts/install
+advanced-core-concepts/log
 __pycache__
