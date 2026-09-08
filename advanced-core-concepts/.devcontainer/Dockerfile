@@ -29,7 +29,8 @@ RUN apt-get install -y \
     ros-jazzy-rqt-graph \
     ros-jazzy-ros-gz \
     mupdf \
-    ros-$ROS_DISTRO-teleop-twist-keyboard
+    ros-$ROS_DISTRO-teleop-twist-keyboard \
+    vim
 # X11 GUI dependencies
 #RUN apt-get update && apt-get install -y \
 #    libx11-6 \
