@@ -2,9 +2,11 @@
 import rclpy
 import time
 from rclpy.node import Node
-from rclpy.action import ActionServer, GoalResponse
+from rclpy.action import ActionServer, GoalResponse, CancelResponse
 from rclpy.action.server import ServerGoalHandle
 from interfaces.action import CountUntil
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.callback_groups import ReentrantCallbackGroup
 
 class CountUntilServer(Node): 
   def __init__(self):
@@ -14,9 +16,15 @@ class CountUntilServer(Node):
       CountUntil,
       "count_until",
       goal_callback = self.goal_callback,
-      execute_callback=self.excute_callback
+      cancel_callback = self.cancel_callback,
+      execute_callback = self.excute_callback,
+      callback_group = ReentrantCallbackGroup()
     )
     self.get_logger().info("Action server has been started")
+    
+  def cancel_callback(self, goal_handle: ServerGoalHandle):
+    self.get_logger().warn("Received a cancel request")
+    return CancelResponse.ACCEPT # or REJECT
     
   def goal_callback(self, goal_request: CountUntil.Goal):
     self.get_logger().info("Recaeived goal")
@@ -36,9 +44,15 @@ class CountUntilServer(Node):
     self.get_logger().info("Excuting the goal")
     feedback = CountUntil.Feedback()
     counter = 0
+    result = CountUntil.Result()
     for i in range(target_number):
+      if goal_handle.is_cancel_requested:
+        self.get_logger().warn("Canceling the goal")
+        goal_handle.canceled()
+        result.reached_number = counter
+        return result
       counter += 1
-      # self.get_logger().info(str(counter))
+      self.get_logger().info(str(counter))
       feedback.current_number = counter
       goal_handle.publish_feedback(feedback)
       time.sleep(period)
@@ -48,14 +62,13 @@ class CountUntilServer(Node):
     # goal_handle.abort()
     
     # and send the result
-    result = CountUntil.Result()
     result.reached_number = counter
     return result
       
 def main(args=None):
   rclpy.init(args=args)
   node = CountUntilServer()
-  rclpy.spin(node)
+  rclpy.spin(node, MultiThreadedExecutor())
   rclpy.shutdown()
 
 
