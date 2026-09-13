@@ -36,3 +36,50 @@ ros2 interface show interfaces/action/CountUntil
 ros2 action send_goal /count_until interfaces/action/CountUntil "{target_number: 8, period: 2.0}"
 ros2 action send_goal /count_until interfaces/action/CountUntil "{target_number: 8, period: 2.0}" --feedback 
 ```
+## Create action c++ package
+
+```bash
+ros2 pkg create actions_cpp --build-type ament_cmake --dependencies rclcpp interfaces
+```
+
+```bash
+docker system prune
+docker builder prune --all
+docker system prune -a --volumes
+docker system df
+sudo systemctl start docker
+docker context use default
+docker info
+# Autostart
+sudo systemctl enable docker
+# disable Autostart
+sudo systemctl disable docker
+sudo systemctl stop docker
+sudo systemctl stop docker.socket
+docker exec -it <container-id-oder-name> bash
+# build commands.json
+# ad to .vscode  "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+# see example below
+colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+```
+
+```json
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/ros/jazzy/include/**",
+                "/home/ws/install/**"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compileCommands": "/home/ws/build/compile_commands.json"
+        }
+    ],
+    "version": 4
+}
+```
