@@ -44,7 +44,7 @@ RUN apt-get install -y \
 #    x11-utils \
 #    && rm -rf /var/lib/apt/lists/*
 ENV SHELL=/bin/bash
-RUN echo "source /opt/ros/jazzy/setup.bash \n source install/setup.bash" >> /home/$USERNAME/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/$USERNAME/.bashrc
 
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
