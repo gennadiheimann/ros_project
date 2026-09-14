@@ -1,4 +1,5 @@
 {
+  "C_Cpp.intelliSenseEngine": "default",
   "python.autoComplete.extraPaths": [
     "/home/ws/install/actions_py/lib/python3.12/site-packages",
     "/home/ws/install/interfaces/lib/python3.12/site-packages",
