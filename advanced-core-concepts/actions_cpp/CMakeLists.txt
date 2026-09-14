@@ -11,6 +11,20 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(interfaces REQUIRED)
 
+add_executable(count_until_server src/count_until_server.cpp)
+
+ament_target_dependencies(
+  count_until_server
+  rclcpp
+  rclcpp_action
+  interfaces
+)
+
+install(TARGETS
+  count_until_server
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
