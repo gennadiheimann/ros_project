@@ -20,8 +20,18 @@ ament_target_dependencies(
   interfaces
 )
 
+add_executable(count_until_client src/count_until_client.cpp)
+
+ament_target_dependencies(
+  count_until_client
+  rclcpp
+  rclcpp_action
+  interfaces
+)
+
 install(TARGETS
   count_until_server
+  count_until_client
   DESTINATION lib/${PROJECT_NAME}
 )
 

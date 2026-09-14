@@ -43,6 +43,13 @@ ros2 pkg create actions_cpp --build-type ament_cmake --dependencies rclcpp inter
 ros2 run actions_cpp count_until_server 
 ```
 
+## Build
+
+```bash
+colcon build --packages-select actions_cpp
+colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+```
+
 ### Docker help commands
 
 ```bash
