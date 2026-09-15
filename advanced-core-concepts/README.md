@@ -41,6 +41,7 @@ ros2 action send_goal /count_until interfaces/action/CountUntil "{target_number:
 ```bash
 ros2 pkg create actions_cpp --build-type ament_cmake --dependencies rclcpp interfaces
 ros2 run actions_cpp count_until_server 
+ros2 run actions_cpp count_until_client
 ```
 
 ## Build
