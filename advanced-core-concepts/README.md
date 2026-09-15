@@ -47,7 +47,7 @@ ros2 run actions_cpp count_until_server
 
 ```bash
 colcon build --packages-select actions_cpp
-colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --packages-select actions_cpp
 ```
 
 ### Docker help commands

@@ -34,17 +34,17 @@ public:
     count_until_client_->async_send_goal(goal, options);
 
     // Wait 2 s and cancel the goal
-    timer_ = this->create_wall_timer(
-      std::chrono::seconds(4), 
-      std::bind(&CountUntilClient::timer_callback, this));
+    // timer_ = this->create_wall_timer(
+    //   std::chrono::seconds(4), 
+    //   std::bind(&CountUntilClient::timer_callback, this));
   }
 
 private:
-  void timer_callback(){
-    RCLCPP_INFO(this->get_logger(), "Cancel the goal");
-    count_until_client_->async_cancel_goal(goal_handle_);
-    timer_->cancel();
-  }
+  // void timer_callback(){
+  //   RCLCPP_INFO(this->get_logger(), "Cancel the goal");
+  //   count_until_client_->async_cancel_goal(goal_handle_);
+  //   timer_->cancel();
+  // }
 
   // Feedback callback
   void goal_feedback_callback(const CountUntilGoalHandle::SharedPtr &goal_handle, 

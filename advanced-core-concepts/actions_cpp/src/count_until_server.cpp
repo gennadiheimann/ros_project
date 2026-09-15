@@ -28,6 +28,8 @@ private:
   rclcpp_action::GoalResponse goal_callback(
     const rclcpp_action::GoalUUID &uuid, std::shared_ptr<const CountUntil::Goal> goal){
       RCLCPP_INFO(this->get_logger(), "Received goal");
+      // Policy: refuse new goal if one goal is being active
+      if(goal_handle_)
       if(goal.get()->target_number <= 0.0){
        RCLCPP_INFO(this->get_logger(), "Rejecting the goal");
        return rclcpp_action::GoalResponse::REJECT;
@@ -48,6 +50,7 @@ private:
   }
 
   void execute_goal(const std::shared_ptr<CountUntilGoalHandle> goal_handle){
+    goal_handle_ = goal_handle;
     // Get request from goal
     int target_number = goal_handle->get_goal()->target_number;
     double period = goal_handle->get_goal()->period;
@@ -78,6 +81,7 @@ private:
 
   rclcpp_action::Server<CountUntil>::SharedPtr count_until_server_;
   rclcpp::CallbackGroup::SharedPtr cb_group_;
+  std::shared_ptr<CountUntilGoalHandle> goal_handle_;
 };
 
 int main(int argc, char **argv)
