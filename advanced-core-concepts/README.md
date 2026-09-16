@@ -50,6 +50,13 @@ ros2 run actions_cpp count_until_client
 colcon build --packages-select actions_cpp
 colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --packages-select actions_cpp
 ```
+## Challenge Robot Movement
+
+```bash
+ros2 run actions_py robot_movement_server
+ros2 action send_goal /robot_movement interfaces/action/RobotMovement "{position: 50, velocity: 7}" --feedback 
+ros2 run actions_py robot_movement_cleint 
+```
 
 ### Docker help commands
 
