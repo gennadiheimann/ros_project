@@ -53,9 +53,13 @@ colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON --packages-select a
 ## Challenge Robot Movement
 
 ```bash
+colcon build --packages-select actions_py --symlink-install
 ros2 run actions_py robot_movement_server
 ros2 action send_goal /robot_movement interfaces/action/RobotMovement "{position: 50, velocity: 7}" --feedback 
-ros2 run actions_py robot_movement_cleint 
+ros2 run actions_py robot_movement_cleint
+ros2 interface show interfaces/msg/Empty
+ros2 topic pub -1 /cancel_move interfaces/msg/Empty "{}"
+
 ```
 
 ### Docker help commands

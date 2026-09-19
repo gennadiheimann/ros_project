@@ -73,18 +73,8 @@ class RobotMovementServer(Node):
     self.get_logger().info("Excuting the goal")
     feedback = RobotMovement.Feedback()
     result = RobotMovement.Result()
-    iterations = (abs(position - self.current_position) // velocity)
-    diff = position - self.current_position
-    
-    for i in range(iterations):
-      with self.goal_lock_: 
-        if diff < 0 :
-          # Backwards
-          self.current_position -= velocity
-        else:
-          # forwards
-          self.current_position += velocity
-        
+
+    while rclpy.ok():
       if not goal_handle.is_active:
         self.get_logger().warn("Goal is not active")
         result.position = self.current_position
@@ -92,27 +82,43 @@ class RobotMovementServer(Node):
         
       if goal_handle.is_cancel_requested:
         self.get_logger().warn("Canceling the goal")
-        goal_handle.canceled()
         result.position = self.current_position
+        if position == self.current_position:
+          result.message = "Robot reach the position"
+          goal_handle.succeed()
+        else: 
+          result.message = "Canceled"
+          goal_handle.canceled()
         return result
-      
-      with self.goal_lock_: 
-        self.get_logger().info("Current Position: " + str(self.current_position))
-        feedback.current_position = self.current_position
-        goal_handle.publish_feedback(feedback)
+        
+      diff = position - self.current_position
+              
+      if diff < 0 :
+        # Backwards
+        if abs(diff) < velocity:
+          self.current_position -= abs(diff)
+          break
+        self.current_position -= velocity
+      else:
+        # forwards
+        if abs(diff) < velocity:
+          self.current_position += diff
+          break
+        self.current_position += velocity
+        
+      self.get_logger().info("Current Position: " + str(self.current_position))
+      feedback.current_position = self.current_position
+      goal_handle.publish_feedback(feedback)
+        
       time.sleep(1.0)
-    
-    with self.goal_lock_: 
-      self.current_position += position - self.current_position
-      
     # Once done, set goal final state
     if goal_handle.is_active:
       goal_handle.succeed()
     else:
       self.get_logger().warn("Goal was aborted, not calling succeed()")
-      
-    
+          
     # and send the result
+    self.get_logger().info("Robot reach tehe position: " + str(self.current_position))
     result.position = self.current_position
     result.message = "Robot reachs the position"
     return result
