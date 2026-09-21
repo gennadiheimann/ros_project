@@ -59,7 +59,21 @@ ros2 action send_goal /robot_movement interfaces/action/RobotMovement "{position
 ros2 run actions_py robot_movement_cleint
 ros2 interface show interfaces/msg/Empty
 ros2 topic pub -1 /cancel_move interfaces/msg/Empty "{}"
+```
 
+## Lifecycle
+
+```bash
+ros2 pkg create lifecycle_py --build-type ament_python --dependencies rclpy
+colcon build --packages-select lifecycle_py --symlink-install
+ros2 run lifecycle_py number_publisher
+ros2 topic list
+ros2 topic echo /number
+ros2 node list
+ros2 lifecycle nodes
+ros2 lifecycle get /number_publisher
+ros2 lifecycle list /number_publisher
+ros2 lifecycle set /number_publisher configure
 ```
 
 ### Docker help commands
