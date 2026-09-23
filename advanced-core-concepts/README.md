@@ -74,6 +74,10 @@ ros2 lifecycle nodes
 ros2 lifecycle get /number_publisher
 ros2 lifecycle list /number_publisher
 ros2 lifecycle set /number_publisher configure
+ros2 service list
+ros2 service type /number_publisher/get_state
+ros2 interface show lifecycle_msgs/srv/GetState
+ros2 service call /number_publisher/get_state lifecycle_msgs/srv/GetState "{}"
 ```
 
 ### Docker help commands

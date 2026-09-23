@@ -22,6 +22,8 @@ class NumberPublisherNode(LifecycleNode):
       1.0 / self.publish_frequency_, self.publish_number
     )
     self.number_timer_.cancel()
+    # return TransitionCallbackReturn.ERROR
+    # raise Exception()
     return TransitionCallbackReturn.SUCCESS
   
   # Activate/Enable HW
@@ -48,6 +50,14 @@ class NumberPublisherNode(LifecycleNode):
     self.destroy_lifecycle_publisher(self.number_publisher_)
     self.destroy_timer(self.number_timer_)
     return TransitionCallbackReturn.SUCCESS
+  
+  # Process error, deactivate + cleanup
+  def on_error(self, previous_state: LifecycleState):
+      self.get_logger().info("In on_error")
+      self.destroy_lifecycle_publisher(self.number_publisher_)
+      self.destroy_timer(self.number_timer_)
+      # do some checks, if ok, then return SCCESS, if not FAILURE
+      return TransitionCallbackReturn.SUCCESS
     
   def publish_number(self):
     msg = Number()
