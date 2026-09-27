@@ -42,10 +42,10 @@ class LifecycleNodeManager(Node):
 
 
 def main(args=None):
-    rclpy.init(args=args)
-    node = LifecycleNodeManager()
-    node.initialization_sequence()
-    rclpy.shutdown()
+  rclpy.init(args=args)
+  node = LifecycleNodeManager()
+  node.initialization_sequence()
+  rclpy.shutdown()
 
 
 if __name__ == "__main__":

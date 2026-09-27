@@ -78,6 +78,9 @@ ros2 service list
 ros2 service type /number_publisher/get_state
 ros2 interface show lifecycle_msgs/srv/GetState
 ros2 service call /number_publisher/get_state lifecycle_msgs/srv/GetState "{}"
+ros2 service call /number_publisher/change_state lifecycle_msgs/srv/ChangeState "{transition: {id: 1, label: 'configure'}}"
+colcon build --packages-select bringup
+ros2 launch bringup lifecycle.launch.xml
 ```
 
 ### Docker help commands
